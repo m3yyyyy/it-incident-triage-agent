@@ -1,0 +1,30 @@
+[
+  {
+    "id": "rb-m365-auth", "title": "Microsoft 365 sign-in and MFA", "category": "Identity & access",
+    "keywords": ["outlook", "microsoft 365", "password", "mfa", "sign in", "login", "authentication", "account locked"],
+    "summary": "Use when a person cannot access Microsoft 365 or is repeatedly prompted to authenticate.",
+    "likelyCauses": ["Expired or revoked session", "MFA challenge failure", "Stale cached credentials", "Account lock or conditional-access policy"],
+    "steps": ["Confirm the affected user and scope; do not request passwords.", "Verify the user can reach the approved sign-in page.", "Ask the identity administrator to check account lock and sign-in logs.", "Have the user complete MFA and remove only their own stale client credentials.", "Escalate to identity support if the issue persists after a clean sign-in."]
+  },
+  {
+    "id": "rb-network-dns", "title": "DNS resolution failure", "category": "Network & DNS",
+    "keywords": ["dns", "domain", "hostname", "cannot resolve", "website unavailable", "network", "internet", "resolution"],
+    "summary": "Use for hostnames that cannot be resolved or services unreachable by name.",
+    "likelyCauses": ["Incorrect DNS record", "Resolver outage or misconfiguration", "VPN or network path issue", "Recently changed hostname"],
+    "steps": ["Confirm the hostname and expected network/VPN context.", "Run a read-only DNS lookup against an approved hostname.", "Compare the result with the documented expected record.", "Check the local network or VPN connection.", "Escalate record changes to the network team; do not change DNS from this application."]
+  },
+  {
+    "id": "rb-web-service", "title": "Web application unavailable", "category": "Application availability",
+    "keywords": ["http", "website", "web app", "500", "503", "timeout", "page", "api", "unavailable"],
+    "summary": "Use when an internal or public web page/API returns an error or times out.",
+    "likelyCauses": ["Application deployment issue", "Upstream dependency failure", "Service overload", "Incorrect endpoint or certificate configuration"],
+    "steps": ["Record the URL, time, error code, and user impact.", "Perform a read-only HTTP status check against an approved endpoint.", "Check the service status page and recent deployment records.", "Compare with a known-good endpoint if available.", "Page the service owner if impact is broad or a P1/P2 threshold is met."]
+  },
+  {
+    "id": "rb-vpn", "title": "VPN connectivity problem", "category": "Remote access",
+    "keywords": ["vpn", "remote", "tunnel", "connect", "home", "access internal"],
+    "summary": "Use for remote workers unable to reach internal services.",
+    "likelyCauses": ["Expired VPN session", "Incorrect MFA state", "Local network restriction", "VPN gateway capacity issue"],
+    "steps": ["Confirm whether the issue affects one user or multiple users.", "Ask the user to reconnect and complete the normal MFA flow.", "Verify their local internet connection without collecting sensitive data.", "Check the approved VPN status page.", "Escalate to the network team if there is evidence of a broader outage."]
+  }
+]

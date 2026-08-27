@@ -1,0 +1,8 @@
+[
+  {
+    "id": "inc-demo-001", "title": "Outlook repeatedly requests password", "description": "A finance user cannot access email. Outlook prompts for a password every few minutes after a laptop update.", "reporter": "A. Rahman", "affectedService": "Microsoft 365", "createdAt": "2026-08-28T02:10:00.000Z", "category": "Identity & access", "priority": "P3", "confidence": 92, "status": "awaiting_approval",
+    "matchedRunbooks": [], "recommendation": { "summary": "Authentication symptoms match the Microsoft 365 sign-in runbook.", "likelyCauses": ["Stale cached credentials", "Expired or revoked session", "MFA challenge failure"], "steps": ["Confirm the affected user and scope; do not request passwords.", "Verify the user can reach the approved sign-in page.", "Ask the identity administrator to check account lock and sign-in logs."], "requiresApproval": true, "proposedAction": "Approve a guided user sign-in and identity-admin review. No account or infrastructure changes will be performed." },
+    "timeline": [{ "id": "evt-1", "type": "submitted", "at": "2026-08-28T02:10:00.000Z", "actor": "A. Rahman", "message": "Incident submitted." }, { "id": "evt-2", "type": "triaged", "at": "2026-08-28T02:10:01.000Z", "actor": "Triage agent", "message": "Classified as Identity & access (P3, 92% confidence)." }, { "id": "evt-3", "type": "approval_requested", "at": "2026-08-28T02:10:01.000Z", "actor": "Triage agent", "message": "Recommendation is waiting for human approval." }],
+    "auditTrail": []
+  }
+]
