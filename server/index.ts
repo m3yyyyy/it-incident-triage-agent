@@ -15,11 +15,13 @@ app.get("/api/incidents", async (_req, res) => res.json(await getIncidents()));
 app.get("/api/incidents/:id", async (req, res) => { const incident = (await getIncidents()).find((item) => item.id === req.params.id); if (!incident) return res.status(404).json({ error: "Incident not found" }); res.json(incident); });
 app.post("/api/incidents", async (req, res) => {
   const input = req.body as IncidentInput;
-  if (![input.title, input.description, input.reporter, input.affectedService].every((value) => typeof value === "string" && value.trim())) return res.status(400).json({ error: "title, description, reporter, and affectedService are required." });
+  const fields = [input.title, input.description, input.reporter, input.affectedService];
+  if (!fields.every((value) => typeof value === "string" && value.trim())) return res.status(400).json({ error: "title, description, reporter, and affectedService are required." });
+  if (input.title.length > 160 || input.description.length > 2000 || input.reporter.length > 100 || input.affectedService.length > 120) return res.status(400).json({ error: "Incident fields exceed the public demo limits." });
   const analysis = triageIncident(input, await getRunbooks()); const now = new Date().toISOString();
   const incident: Incident = { id: `inc-${crypto.randomUUID().slice(0, 8)}`, ...input, createdAt: now, status: "awaiting_approval", ...analysis, timeline: [], auditTrail: [] };
   incident.timeline = [event("submitted", input.reporter, "Incident submitted."), event("triaged", "Triage agent", `Classified as ${incident.category} (${incident.priority}, ${incident.confidence}% confidence).`), event("approval_requested", "Triage agent", "Recommendation is waiting for human approval.")];
-  incident.auditTrail = [...incident.timeline]; const incidents = await getIncidents(); incidents.unshift(incident); await saveIncidents(incidents); res.status(201).json(incident);
+  incident.auditTrail = [...incident.timeline]; const incidents = await getIncidents(); incidents.unshift(incident); await saveIncidents(incidents.slice(0, 100)); res.status(201).json(incident);
 });
 app.post("/api/incidents/:id/decision", async (req, res) => {
   const decision = req.body?.decision; const reviewer = String(req.body?.reviewer || "Operations reviewer"); if (decision !== "approve" && decision !== "reject") return res.status(400).json({ error: "decision must be approve or reject" });

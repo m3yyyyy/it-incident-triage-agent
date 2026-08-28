@@ -1,0 +1,10 @@
+.git
+.github
+.npm-cache
+node_modules
+dist
+dist-server
+outputs
+coverage
+data/incidents.local.json
+npm-debug.log*

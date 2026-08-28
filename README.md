@@ -70,6 +70,16 @@ docker compose up --build
 
 Open `http://localhost:3001`.
 
+## Deploy on Render
+
+The repository includes a `render.yaml` Blueprint and a multi-stage Docker build.
+
+1. In Render, create a new Blueprint and select this GitHub repository.
+2. Keep the `free` web-service plan defined by the Blueprint.
+3. Confirm the `/api/health` health check and deploy.
+
+The free demo uses an ephemeral filesystem: submitted incidents can be shared between visitors and reset whenever the service sleeps, restarts, or redeploys. Use sample data only—never submit real employee, customer, or infrastructure information.
+
 ## API examples
 
 Create an incident:

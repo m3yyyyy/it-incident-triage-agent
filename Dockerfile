@@ -14,4 +14,4 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/dist-server ./dist-server
 COPY --from=build /app/data ./data
 EXPOSE 3001
-CMD ["node", "dist-server/index.js"]
+CMD ["node", "dist-server/server/index.js"]
