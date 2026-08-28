@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import crypto from "node:crypto";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import type { Incident, IncidentInput, TimelineEvent } from "../shared/types.js";
 import { triageIncident } from "./triage.js";
 import { getIncidents, getRunbooks, saveIncidents } from "./store.js";
@@ -31,5 +30,5 @@ app.post("/api/incidents/:id/decision", async (req, res) => {
 app.post("/api/diagnostics/:tool", async (req, res) => {
   const { tool } = req.params; let result; if (tool === "dns") result = await dnsLookup(String(req.body?.host || "")); else if (tool === "http") result = await httpStatus(String(req.body?.url || "")); else if (tool === "port") result = await portCheck(String(req.body?.host || ""), Number(req.body?.port)); else return res.status(404).json({ error: "Unknown diagnostic tool" }); res.json(result);
 });
-if (process.env.SERVE_CLIENT === "true") { const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../dist"); app.use(express.static(root)); app.get("/{*splat}", (_req, res) => res.sendFile(path.join(root, "index.html"))); }
+if (process.env.SERVE_CLIENT === "true") { const root = path.resolve(process.cwd(), "dist"); app.use(express.static(root)); app.get("/{*splat}", (_req, res) => res.sendFile(path.join(root, "index.html"))); }
 const port = Number(process.env.PORT || 3001); app.listen(port, () => console.log(`Triage API listening on http://localhost:${port}`));
